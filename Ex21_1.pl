@@ -59,23 +59,23 @@ start_hyp([[has_daughter(X)] / [X]]).
 %
 % has_daughter(X) :- parent(X,Y), female(Y).
 %
-% Explanation:
-% A person X has a daughter if there exists a Y such that
-% parent(X,Y) is true and female(Y) is also true.
+% Explicação:
+% Uma pessoa X possui uma filha se existir um Y tal que parent(X,Y) 
+% seja verdadeiro e female(Y) também seja verdadeiro.
 %
-% Effects of modifications:
+% Efeitos da modificação:
 %
-% 1. Adding an incorrect positive example such as:
+% 1. Adicionar um exemplo positivo incorreto, como:
 %    ex(has_daughter(pam)).
-%    can make the system learn an overly general rule, such as:
+%    pode fazer o sistema aprender uma regra excessivamente geral, como:
 %    has_daughter(X) :- parent(X,Y).
 %
-% 2. Adding a contradictory negative example such as:
+% 2. Adicionar um exemplo negativo contraditório, como:
 %    nex(has_daughter(tom)).
-%    creates inconsistency, because Tom has Liz as a daughter.
+%    cria uma inconsistência, porque Tom possui Liz como filha.
 %
-% 3. Removing relevant positive examples can make the hypothesis
-%    too specific. For example, removing Pat may lead the system
-%    to think that only males can have daughters.
-%
-% 4. Adding more correct and varied examples improves generalization.
+% 3. Remover exemplos positivos relevantes pode fazer a hipótese 
+% se tornar específica demais. Por exemplo, remover Pat pode levar 
+% o sistema a pensar que apenas homens podem ter filhas.
+%    
+% 4.Adicionar mais exemplos corretos e variados melhora a generalização.
