@@ -34,7 +34,7 @@ predecessor(A,B) :-
     predecessor(C,B).
 ```
 
-O exercício mostra que o espaço de busca do MINIHYPER cresce muito rapidamente. Por isso, o livro sugere restringir os literais de fundo com `atom(X)`, fazendo com que `parent(X,Y)` e `predecessor(X,Y)` só sejam chamados quando o primeiro argumento estiver instanciado.
+O exercício mostra que o espaço de busca do MINIHYPER cresce de forma rápida. Por isso, o livro sugere restringir os literais de fundo com `atom(X)`, fazendo com que `parent(X,Y)` e `predecessor(X,Y)` só sejam chamados quando o primeiro argumento estiver instanciado.
 
 ## Execução rápida
 
