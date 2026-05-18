@@ -30,7 +30,7 @@ parent(pat,jim).
 parent(pat,eve).
 
 % ------------------------------------------------------------
-% Exemplos positivos para predecessor
+% Exemplos positivos
 % ------------------------------------------------------------
 
 ex(predecessor(pam,bob)).
@@ -40,7 +40,7 @@ ex(predecessor(tom,jim)).
 ex(predecessor(tom,liz)).
 
 % ------------------------------------------------------------
-% Exemplos negativos para predecessor
+% Exemplos negativos
 % ------------------------------------------------------------
 
 nex(predecessor(liz,bob)).
@@ -50,7 +50,7 @@ nex(predecessor(liz,jim)).
 nex(predecessor(liz,liz)).
 
 % ------------------------------------------------------------
-% Hipótese inicial
+% Hipóteses
 % ------------------------------------------------------------
 
 start_hyp([
@@ -59,7 +59,7 @@ start_hyp([
 ]).
 
 % ------------------------------------------------------------
-% Hipótese-alvo
+% Hipótese esperada
 % ------------------------------------------------------------
 %
 % predecessor(A,B) :- parent(A,B).
