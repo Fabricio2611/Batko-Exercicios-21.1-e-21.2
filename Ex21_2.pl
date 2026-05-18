@@ -1,15 +1,15 @@
 % ============================================================
-% Exercicio 21.2 - Bratko / MINIHYPER
-% Refinement steps for predecessor
+% Exercício 21.2 - Bratko / MINIHYPER
+% Passos de refinamento para predecessor
 % ============================================================
 
 % ------------------------------------------------------------
-% Background knowledge
+% Conhecimento de fundo
 % ------------------------------------------------------------
 
-% Modified background literals suggested in the book.
-% The use of atom(X) restricts parent(X,Y) and predecessor(X,Y)
-% to be called only when X is instantiated.
+% Literais de fundo modificados sugeridos no livro.
+% O uso de atom(X) restringe parent(X,Y) e predecessor(X,Y)
+% para serem chamados apenas quando X estiver instanciado.
 
 backliteral([atom(X), parent(X,Y)], [X,Y]).
 backliteral([atom(X), predecessor(X,Y)], [X,Y]).
@@ -18,7 +18,7 @@ prolog_predicate(parent(X,Y)).
 prolog_predicate(atom(X)).
 
 % ------------------------------------------------------------
-% Family relations
+% Relações familiares
 % ------------------------------------------------------------
 
 parent(pam,bob).
@@ -30,7 +30,7 @@ parent(pat,jim).
 parent(pat,eve).
 
 % ------------------------------------------------------------
-% Positive examples for predecessor
+% Exemplos positivos para predecessor
 % ------------------------------------------------------------
 
 ex(predecessor(pam,bob)).
@@ -40,7 +40,7 @@ ex(predecessor(tom,jim)).
 ex(predecessor(tom,liz)).
 
 % ------------------------------------------------------------
-% Negative examples for predecessor
+% Exemplos negativos para predecessor
 % ------------------------------------------------------------
 
 nex(predecessor(liz,bob)).
@@ -50,7 +50,7 @@ nex(predecessor(liz,jim)).
 nex(predecessor(liz,liz)).
 
 % ------------------------------------------------------------
-% Starting hypothesis
+% Hipótese inicial
 % ------------------------------------------------------------
 
 start_hyp([
@@ -59,7 +59,7 @@ start_hyp([
 ]).
 
 % ------------------------------------------------------------
-% Target hypothesis
+% Hipótese-alvo
 % ------------------------------------------------------------
 %
 % predecessor(A,B) :- parent(A,B).
@@ -69,36 +69,37 @@ start_hyp([
 %     predecessor(C,B).
 %
 % ------------------------------------------------------------
-% Refinement analysis
+% Análise dos refinamentos
 % ------------------------------------------------------------
 %
-% The target hypothesis has two clauses.
+% A hipótese-alvo possui duas cláusulas.
 %
-% Clause 1:
+% Cláusula 1:
 % predecessor(A,B) :- parent(A,B).
 %
-% This clause is obtained by adding one relevant background literal
-% to the first empty clause body:
+% Essa cláusula é obtida adicionando um literal relevante
+% de conhecimento de fundo ao primeiro corpo vazio:
 %
-% Step 1:
+% Passo 1:
 % predecessor(A,B) :- parent(A,B).
 %
-% With the modified background, this appears as:
+% Com o conhecimento de fundo modificado, isso aparece como:
 %
 % predecessor(A,B) :- atom(A), parent(A,B).
 %
-% Clause 2:
+% Cláusula 2:
 % predecessor(A,B) :- parent(A,C), predecessor(C,B).
 %
-% This recursive clause requires two relevant additions:
+% Essa cláusula recursiva exige duas adições relevantes:
 %
-% Step 2:
+% Passo 2:
 % predecessor(A,B) :- parent(A,C).
 %
-% Step 3:
+% Passo 3:
 % predecessor(A,B) :- parent(A,C), predecessor(C,B).
 %
-% With the modified background, this appears with atom checks:
+% Com o conhecimento de fundo modificado, isso aparece
+% com verificações atom:
 %
 % predecessor(A,B) :-
 %     atom(A),
@@ -106,19 +107,19 @@ start_hyp([
 %     atom(C),
 %     predecessor(C,B).
 %
-% Therefore, conceptually, at least three main refinement steps are
-% needed to reach the target definition:
+% Portanto, conceitualmente, pelo menos três passos principais
+% de refinamento são necessários para alcançar a definição-alvo:
 %
-% 1. Add parent(A,B) to produce the direct parent case.
-% 2. Add parent(A,C) to begin the recursive case.
-% 3. Add predecessor(C,B) to complete the recursive case.
+% 1. Adicionar parent(A,B) para produzir o caso direto.
+% 2. Adicionar parent(A,C) para iniciar o caso recursivo.
+% 3. Adicionar predecessor(C,B) para completar a recursão.
 %
-% The atom(A) and atom(C) literals are not part of the conceptual
-% predecessor definition. They are operational restrictions used to
-% reduce the search space and avoid useless hypotheses.
+% Os literais atom(A) e atom(C) não fazem parte da definição
+% conceitual de predecessor. Eles são restrições operacionais
+% utilizadas para reduzir o espaço de busca e evitar hipóteses inúteis.
 %
 % ------------------------------------------------------------
-% Expected MINIHYPER result shown in the book
+% Resultado esperado do MINIHYPER mostrado no livro
 % ------------------------------------------------------------
 %
 % H = [
@@ -129,4 +130,4 @@ start_hyp([
 %   / [D,E]
 % ]
 %
-% This corresponds to the expected recursive definition of predecessor.
+% Isso corresponde à definição recursiva esperada de predecessor.
