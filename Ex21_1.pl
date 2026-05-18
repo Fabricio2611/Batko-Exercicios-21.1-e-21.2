@@ -3,6 +3,10 @@
 % Experimento com exemplos modificados de has_daughter
 % ============================================================
 
+% ------------------------------------------------------------
+% Conhecimento de fundo
+% ------------------------------------------------------------
+
 backliteral(parent(X,Y), [X,Y]).
 backliteral(male(X), [X]).
 backliteral(female(X), [X]).
