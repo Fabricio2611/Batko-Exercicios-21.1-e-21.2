@@ -107,13 +107,6 @@ start_hyp([
 %     atom(C),
 %     predecessor(C,B).
 %
-% Portanto, conceitualmente, pelo menos três passos principais
-% de refinamento são necessários para alcançar a definição-alvo:
-%
-% 1. Adicionar parent(A,B) para produzir o caso direto.
-% 2. Adicionar parent(A,C) para iniciar o caso recursivo.
-% 3. Adicionar predecessor(C,B) para completar a recursão.
-%
 % Os literais atom(A) e atom(C) não fazem parte da definição
 % conceitual de predecessor. Eles são restrições operacionais
 % utilizadas para reduzir o espaço de busca e evitar hipóteses inúteis.
