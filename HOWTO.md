@@ -1,67 +1,76 @@
-# HOWTO - Exercício 21.1
+# HOWTO - Execução dos Exercícios 21.1 e 21.2
 
-## Objetivo
+## 1. Requisitos
 
-O exercício 21.1 pede para experimentar o MINIHYPER com modificações nos exemplos do predicado `has_daughter/1`, observando como essas alterações afetam os resultados do aprendizado.
+É necessário ter o SWI-Prolog instalado.
 
-A base original descreve relações familiares por meio dos predicados `parent/2`, `male/1` e `female/1`. A hipótese correta esperada é:
-
-```prolog
-has_daughter(X) :- parent(X,Y), female(Y).
-```
-
-Ou seja, uma pessoa possui filha se existe algum `Y` tal que `Y` é filho(a) de `X` e `Y` é do sexo feminino.
-
-## Arquivos
-
-- `minihyper_21_1_base.pl`: base original do exercício, com exemplos positivos, negativos, conhecimento de fundo e hipótese inicial.
-- `run_21_1_expected.pl`: script para executar os testes da hipótese correta e das hipóteses alternativas discutidas.
-- `RESULTS_21_1.md`: explicação dos resultados.
-
-## Como executar
-
-Entre na pasta do exercício:
-
-```bash
-cd exercise_21_1
-```
-
-Execute:
-
-```bash
-swipl -q -s run_21_1_expected.pl -g main -t halt
-```
-
-## Resultado esperado
-
-A saída esperada mostra que a hipótese correta:
-
-```prolog
-has_daughter(X) :- parent(X,Y), female(Y).
-```
-
-classifica corretamente os exemplos originais:
+Site oficial:
 
 ```text
-[OK] tom deve ser positivo
-[OK] bob deve ser positivo
-[OK] pat deve ser positivo
-[OK] pam deve ser negativo
-[OK] jim deve ser negativo
+https://www.swi-prolog.org/
 ```
 
-O script também demonstra o efeito das modificações. Quando se adiciona um positivo incorreto, como `has_daughter(pam)`, uma hipótese muito geral como `has_daughter(X) :- parent(X,_)` passa a aceitar Pam, mas perde precisão, pois confunde "ter filho" com "ter filha". Quando se adiciona um negativo contraditório, como `nex(has_daughter(tom))`, ocorre inconsistência, pois Tom realmente possui Liz como filha. Quando se remove o exemplo de Pat, o conjunto fica menos representativo e o sistema pode aprender uma regra específica demais, por exemplo exigindo que `X` seja homem.
+## 2. Clonar o repositório
 
-## Como usar com MINIHYPER
+Depois de enviar os arquivos para o GitHub, o repositório poderá ser clonado com:
 
-O arquivo `minihyper_21_1_base.pl` contém a formulação base no estilo do MINIHYPER. Para testar modificações, altere os blocos de exemplos positivos e negativos:
+```bash
+git clone https://github.com/SEU_USUARIO/NOME_DO_REPOSITORIO.git
+cd NOME_DO_REPOSITORIO
+```
+
+## 3. Executar o exercício 21.1
+
+Abra o SWI-Prolog:
+
+```bash
+swipl
+```
+
+Carregue o arquivo:
 
 ```prolog
-ex(has_daughter(tom)).
-ex(has_daughter(bob)).
-ex(has_daughter(pat)).
+['ex21_1.pl'].
+```
 
-nex(has_daughter(pam)).
+O arquivo contém os fatos de parentesco, exemplos positivos, exemplos negativos e comentários explicando os efeitos das modificações no predicado `has_daughter`.
+
+Resultado esperado conceitualmente:
+
+```prolog
+has_daughter(X) :- parent(X,Y), female(Y).
+```
+
+Essa regra significa que uma pessoa possui filha se existir alguém `Y` tal que `Y` é filho ou filha de `X` e `Y` é do sexo feminino.
+
+## 4. Executar o exercício 21.2
+
+No SWI-Prolog:
+
+```prolog
+['ex21_2.pl'].
+```
+
+O arquivo contém a base de conhecimento para o predicado `predecessor`, a hipótese inicial e a hipótese-alvo esperada.
+
+Resultado esperado conceitualmente:
+
+```prolog
+predecessor(A,B) :- parent(A,B).
+
+predecessor(A,B) :-
+    parent(A,C),
+    predecessor(C,B).
+```
+
+Essa definição indica que `A` é predecessor de `B` se `A` é pai/mãe direto de `B`, ou se `A` é pai/mãe de alguém `C` que também é predecessor de `B`.
+
+## 5. Resultado da análise
+
+O exercício 21.1 demonstra que a qualidade dos exemplos positivos e negativos influencia diretamente a hipótese aprendida. Exemplos errados podem gerar hipóteses incorretas, enquanto exemplos variados melhoram a generalização.
+
+O exercício 21.2 mostra que a hipótese recursiva de `predecessor` exige refinamentos sucessivos, adicionando literais como `parent(A,B)`, `parent(A,C)` e `predecessor(C,B)`. A restrição com `atom(X)` reduz o espaço de busca e evita que o MINIHYPER explore hipóteses inúteis.
+
 nex(has_daughter(jim)).
 ```
 
