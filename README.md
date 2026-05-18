@@ -1,29 +1,59 @@
-# Bratko - Exercícios 21.1 e 21.2
+# Exercícios 21.1 e 21.2 - Bratko / MINIHYPER
 
-Repositório para entrega dos exercícios do Capítulo 21 do livro do Bratko.
+Este repositório contém a resolução dos exercícios 21.1 e 21.2 do livro do Bratko, envolvendo experimentos com o MINIHYPER e aprendizado indutivo em lógica.
 
-## Conteúdo atual
+## Arquivos
 
-- `exercise_21_1/`: resolução do exercício 21.1, com arquivos Prolog para teste do predicado `has_daughter/1`.
-- `exercise_21_1/HOWTO.md`: passos de execução e resultados esperados.
-- `exercise_21_1/run_21_1_expected.pl`: script executável em SWI-Prolog para validar as hipóteses discutidas.
-- `exercise_21_1/minihyper_21_1_base.pl`: base no formato usado pelo MINIHYPER.
+- `ex21_1.pl`: resolução e experimentos do exercício 21.1.
+- `ex21_2.pl`: resolução do exercício 21.2.
+- `HOWTO.md`: instruções de execução e resultados esperados.
 
-O exercício 21.2 será adicionado depois.
+## Exercício 21.1
 
-## Requisitos
+O exercício 21.1 pede para experimentar o MINIHYPER com modificações nos exemplos do predicado `has_daughter` e observar como essas alterações afetam os resultados.
 
-Para executar os testes automáticos da resolução:
+A hipótese esperada para os exemplos originais é:
 
-```bash
-sudo apt install swi-prolog
+```prolog
+has_daughter(X) :- parent(X,Y), female(Y).
 ```
 
-No Windows, instale pelo site oficial do SWI-Prolog e execute os comandos no terminal dentro da pasta do repositório.
+Quando exemplos positivos incorretos, negativos contraditórios ou exemplos insuficientes são adicionados/removidos, o sistema pode aprender hipóteses mais genéricas, inconsistentes ou específicas demais.
+
+## Exercício 21.2
+
+O exercício 21.2 pede para analisar quantos passos de refinamento são necessários para obter a hipótese-alvo a partir da hipótese inicial do exercício anterior, agora para o predicado `predecessor`.
+
+A hipótese-alvo esperada é:
+
+```prolog
+predecessor(A,B) :- parent(A,B).
+
+predecessor(A,B) :-
+    parent(A,C),
+    predecessor(C,B).
+```
+
+O exercício mostra que o espaço de busca do MINIHYPER cresce muito rapidamente. Por isso, o livro sugere restringir os literais de fundo com `atom(X)`, fazendo com que `parent(X,Y)` e `predecessor(X,Y)` só sejam chamados quando o primeiro argumento estiver instanciado.
 
 ## Execução rápida
 
+No terminal:
+
 ```bash
-cd exercise_21_1
-swipl -q -s run_21_1_expected.pl -g main -t halt
+swipl
 ```
+
+Depois:
+
+```prolog
+['ex21_1.pl'].
+```
+
+ou:
+
+```prolog
+['ex21_2.pl'].
+```
+
+Mais detalhes estão no arquivo `HOWTO.md`.
